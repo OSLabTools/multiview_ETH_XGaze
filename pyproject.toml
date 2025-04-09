@@ -1,0 +1,121 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = ["setuptools"]
+
+[project]
+name = "multiview_eth_xgaze"
+description = "The MultiView ETH-XGaze is the gaze detection library for multiple camera views"
+dynamic = ["readme"]
+requires-python = ">3.7,<3.11"
+version = "0.0.1"
+
+dependencies = [
+    "tensorboard",
+    "face_alignment==1.4.0",
+    "toml",
+    "numpy==1.24.3",
+    "opencv-python",
+    "torch==2.1.0",
+    "torchvision==0.16.0",
+    "torchaudio==2.1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "codespell==2.2.4",
+    "coverage",
+    "myst_parser==3.0.1",
+    "pre-commit==4.0.1",
+    "ruff==0.8.0",
+    "sphinx==7.0.0",
+    "sphinx-rtd-theme==2.0.0",
+    "sphinxcontrib-video==0.3.1",
+    "tox",
+]
+
+[project.scripts]
+run_multiview_xgaze = "multiview_eth_xgaze.inference:entry_point"
+
+# Setuptools
+[tool.setuptools.packages.find]
+where = ["."]
+include = [
+    "multiview_eth_xgaze*",
+]
+exclude = [
+    "tests*", # Exclude test directory
+    "docs*",  # Exclude documentation directory
+    "submodules*",  # Exclude submodules directory
+    "envs*",  # Exclude environments directory
+    "configs*",  # Exclude configs directory
+]
+
+[tool.setuptools.dynamic]
+readme = {file = "README.md"}
+
+# ruff
+[tool.ruff]
+line-length = 88
+exclude = ['./multiview_eth_xgaze/eth_xgaze']
+
+[tool.ruff.format]
+# Enable reformatting of code snippets in docstrings.
+docstring-code-format = true
+# Format all docstring code snippets with a line length of 88.
+docstring-code-line-length = 88
+# Existing trailing commas are used as an indication that short lines should be left separate.
+# Set to true, to ignore the magic trailing comma.
+skip-magic-trailing-comma = true
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle
+    "W",    # pycodestyle
+    "F",    # Pyflakes
+    "UP",   # pyupgrade
+    "B",    # flake8-bugbear
+    "SIM",  # flake8-simplify
+    "I",    # isort
+    "ARG",  # flake8-unused-arguments
+    "R",    # refactor from pylint
+    # TODO: add pylint!
+    # "PL"    # pylint
+    # TODO: add pydocstyle
+    # "D"     # pydocstyle
+    # TODO: add ruff-specific rules
+    # "RUF",  # ruff-specific rules
+]
+preview = true
+ignore = ["RET504"]  # TODO fix later
+
+[tool.ruff.lint.isort]
+split-on-trailing-comma = false
+force-sort-within-sections = false
+
+# Pylint
+[tool.pylint.MASTER]
+disable = "all"
+enable = ["W0221"]
+
+[tool.pylint.MESSAGES_CONTROL]
+disable = "invalid-name"
+
+[tool.codespell]
+skip = "__pycache__,./.mypy_cache,.git,.idea,./venv,./env,./.tox"
+
+# Coverage run settings
+# coverage run -m  unittest discover
+[tool.coverage.run]
+branch = true
+source= [
+    "multiview_eth_xgaze"
+]
+
+# Coverage report settings
+# coverage report -m
+[tool.coverage.report]
+omit= [
+    "tests/*"
+]
+show_missing = true
+skip_empty = true
