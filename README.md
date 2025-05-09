@@ -6,9 +6,9 @@ This repository is for 3D gaze estimation in a multi-view setup.
 
 The current implementation is designed to run the directory through [NICE toolbox](https://github.com/OSLabTools/nicetoolbox), and the configuration file required to run Multiview ETH-XGaze is created automatically there. 
 
-To be able to run Multiview ETH-XGaze through NICE toolbox, you don't need to make a sparate installation here, the installation can be done through NICE Toolbox. 
+To be able to run Multiview ETH-XGaze through NICE toolbox, you don't need to make a separate installation here, the installation can be done through NICE Toolbox. 
 
-**Next**: We will provide the configuration file to run Multiview ETH-XGaze independently.
+**TODO:**: We will provide the configuration file to run Multiview ETH-XGaze independently.
 
 ## Installation
 
@@ -73,6 +73,8 @@ Development options can be installed via
 ```bash
 make DEV=true
 ```
+
+**Note:** To ensure that the PyTorch is installed on top of CUDA 11.8 we use particular installation comment in [Makefile](https://gitlab.tuebingen.mpg.de/gergn/multiview_eth_xgaze/-/blame/main/Makefile?ref_type=heads#L92). In order to ensure that dependencies in [pyproject.toml](https://gitlab.tuebingen.mpg.de/gergn/multiview_eth_xgaze/-/blob/main/pyproject.toml?ref_type=heads) will NOT be reinstalled ( with the wrong CUDA) we added "-c [constraints.txt](https://gitlab.tuebingen.mpg.de/gergn/multiview_eth_xgaze/-/blob/main/constraints.txt?ref_type=heads)" parameter. This will prevent the installation of the libraries that were installed earlier.
 
 ## Attribution
 
